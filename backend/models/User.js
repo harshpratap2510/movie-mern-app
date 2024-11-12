@@ -47,7 +47,7 @@ const movieSchema = mongoose.Schema({
     description : {type : String},
     year: {type : Number},
     imageUrl : {type : String},
-    creatorId : ObjectId , 
+    // creatorId : ObjectId , 
 }) ;
 
 const userModel = mongoose.model("user",userSchema);

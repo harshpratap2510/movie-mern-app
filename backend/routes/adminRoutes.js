@@ -67,7 +67,7 @@ adminRouter.post("/logout", (req, res) => {
 });
 
 // Admin protected route to get all user profiles
-adminRouter.get("/profiles", authenticateAdmin, async (req, res) => {
+adminRouter.get("/all-profiles", authenticateAdmin, async (req, res) => {
     try {
         const users = await userModel.find({});
         res.json(users);

@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { response } from 'express'
 import authenticateAdmin from '../middlewares/adminMiddleware.js';
 import { movieModel } from '../models/User.js';
 
@@ -15,21 +15,23 @@ router.get("/all-movies",async (req, res) => {
 }) ;
 
 
-router.get("/specific-movie/:id",async (req,res)=>{
-
+router.get("/specific-movie/:id", async (req, res) => {
     try {
-        const {id} = req.params ;
-        const specific = await movieModel.findById(id);
-        if(!specific){
-            res.status(404).json({
-                message : " Movie not found" 
-            })
+        const { id } = req.params;
+ 
+        const specific = await movieModel.findById(id); 
+        if (!specific) {
+            return res.status(404).json({ message: "Movie not found" });
         }
-        res.json({ message: `Retrieved movie with ID: ${id}` });
+ 
+        res.status(200).json(specific);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: "Error retrieving movie", error: error.message });
     }
 });
+
+ 
 
 
 //Admin
@@ -43,7 +45,7 @@ router.post("/create-movie",authenticateAdmin,async (req, res) => {
             description,
             year,
             imageUrl,
-            creatorId : req.user.id,
+            // creatorId : req.user.id,
             
         });
         // console.log(movie._id)
