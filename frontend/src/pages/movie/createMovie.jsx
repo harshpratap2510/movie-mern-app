@@ -35,7 +35,7 @@ const CreateMovie = () => {
 
             if (response.ok) {
                 alert("Movie Created successfully!");
-                setFormData({ title: '', decription: '', year:'', imageUrl:'' }); 
+                setFormData({ title: '', description: '', year:'', imageUrl:'' }); 
                 // navigate("/");  
             } else {
                 const errorData = await response.json();

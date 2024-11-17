@@ -10,6 +10,9 @@ import Dashboard from './pages/admin/Dashboard';
 import CreateMovie from './pages/movie/createMovie';
 import AllMovies from './pages/movie/AllMovies';
 import UpdateMovie from './pages/movie/updateMovie';
+import Profile from './pages/profile';
+import AdminProfile from './pages/admin/adminProfile';
+import MovieDetail from './pages/movie/movieDetail';
 
 function App() {
     return (
@@ -25,6 +28,10 @@ function App() {
                 <Route path="/create-movie" element={<CreateMovie />} /> 
                 <Route path="/all-movies" element={<AllMovies />} /> 
                 <Route path="/update-movie/:movieId" element={<UpdateMovie />} /> 
+                <Route path="/admin-profile" element={<AdminProfile/>} /> 
+                <Route path="/movie-detail/:movieId" element={<MovieDetail />} /> 
+                <Route path="/user-profile" element={<Profile />} /> 
+                {/* <Route path="/about" element={<Abo />} />  */}
                 
                 {/* other routes can go here */}
             </Routes>

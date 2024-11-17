@@ -1,35 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ModMovieCard = () => {
-    const [movies, setMovies] = useState([]);
+const ModMovieCard = ({ movies, setMovies }) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedMovieId, setSelectedMovieId] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await fetch("http://localhost:3000/api/v1/movies/all-movies");
-                const data = await response.json();
-
-                if (response.ok) {
-                    setMovies(data.movies);
-                } else {
-                    console.error("Error retrieving movies:", data.message);
-                }
-            } catch (error) {
-                console.error("Error fetching movies:", error);
-            }
-        };
-
-        fetchMovies();
-    }, []);
-
     const truncateText = (text, maxLength) => {
+        if (!text) return ''; // If text is undefined or null, return an empty string
         return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
     };
-
     const openDeleteModal = (movieId) => {
         setSelectedMovieId(movieId);
         setShowModal(true);
@@ -45,13 +25,13 @@ const ModMovieCard = () => {
             const response = await fetch(`http://localhost:3000/api/v1/movies/delete-movie/${selectedMovieId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                credentials: 'include'
+                credentials: 'include',
             });
-            
 
             if (response.ok) {
+                // Filter out the deleted movie from the movies list
                 setMovies((prevMovies) => prevMovies.filter((movie) => movie._id !== selectedMovieId));
                 alert("Movie deleted successfully");
                 closeDeleteModal();

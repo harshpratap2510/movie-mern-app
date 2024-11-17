@@ -48,8 +48,8 @@ const AdminSignup = () => {
     };
 
     return (
-        <div className="bg-black h-screen flex items-center justify-center">
-            <div className="h-[60%] w-[35%]">
+        <div className="bg-black h-fit min-h-screen flex items-center justify-center">
+            <div className="lg:h-[60%] lg:w-[35%] sm:h-[80%] sm:w-[60%] h-[80%] w-[80%]">
                 <h2 className="text-white text-3xl font-bold">Sign Up</h2>
 
                 <form onSubmit={handleSubmit} className="text-black flex text-xl flex-col gap-8 p-8">

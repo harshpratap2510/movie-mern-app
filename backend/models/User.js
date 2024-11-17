@@ -1,56 +1,58 @@
 import mongoose from "mongoose";
 
-const ObjectId = mongoose.Types.ObjectId;
+const { Schema, model } = mongoose;
 
-const userSchema = mongoose.Schema({
-    username : {
-        type :String ,
-        required : true ,
-    } ,
-
-    email : {
-        type:String ,
-        required : true ,
-        unique : true
-    } ,
-
-    password : {
-        type : String,
-        required :true
-    }
-}) ;
+// Review Schema
+const reviewSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    username: { type: String, required: true }, // Add username here
+    comment: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+});
+ 
 
 
-
-const adminSchema = mongoose.Schema({
-    username : {
-        type :String ,
-        required : true ,
-    } ,
-
-    email : {
-        type:String ,
-        required : true ,
-        unique : true
-    } ,
-
-    password : {
-        type : String,
-        required :true
+// Movie Schema
+const movieSchema = new Schema(
+    {
+        title: { type: String, required: true, trim: true }, // Trim unnecessary whitespace
+        year: { type: Number, required: true, min: 1800 }, // Validate year (no ancient movies!)
+        imageUrl: { type: String, required: true }, // Add a validation regex for valid URLs if needed
+        reviews: [reviewSchema], // Embedded array of reviews
     },
-},{
-    timestamps : true
-}) ;
+    {
+        timestamps: true, // Automatically add createdAt and updatedAt fields
+    }
+);
 
-const movieSchema = mongoose.Schema({
-    title : {type : String},
-    description : {type : String},
-    year: {type : Number},
-    imageUrl : {type : String},
-    // creatorId : ObjectId , 
-}) ;
+// User Schema
+const userSchema = new Schema(
+    {
+        username: { type: String, required: true, trim: true, minlength: 3 },
+        email: { type: String, required: true, unique: true, trim: true },
+        password: { type: String, required: true, minlength: 6 },
+    },
+    {
+        timestamps: true,
+    }
+);
 
-const userModel = mongoose.model("user",userSchema);
-const adminModel = mongoose.model("admin",adminSchema);
-const movieModel = mongoose.model("movie", movieSchema);
-export {userModel,adminModel,movieModel} ;
+// Admin Schema
+const adminSchema = new Schema(
+    {
+        username: { type: String, required: true, trim: true, minlength: 3 },
+        email: { type: String, required: true, unique: true, trim: true },
+        password: { type: String, required: true, minlength: 6 },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+// Models
+const userModel = model("user", userSchema);
+const adminModel = model("admin", adminSchema);
+const movieModel = model("movie", movieSchema);
+const reviewModel = model("review", reviewSchema);
+
+export { userModel, adminModel, movieModel,reviewModel };

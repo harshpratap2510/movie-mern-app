@@ -1,61 +1,92 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const AdminProfile = () => {
     const [formData, setFormData] = useState({
-        email: '',
-        username: '',
-        password: ''
+       username: '',
+       email: '',
+       password: ''
     });
-
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState(""); // To store detailed error messages
+
+    useEffect(() => {
+        // Fetch the existing admin profile data
+        const fetchProfileData = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/v1/admin/profile`, {
+                    credentials: 'include', // Ensure cookies are included
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    setFormData({
+                        username: data.admin.username,
+                        email: data.admin.email,
+                        password: '', // Avoid populating password from the server
+                    });
+                } else {
+                    setErrorMessage("Failed to load profile data.");
+                }
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+                setErrorMessage("A network error occurred. Please try again.");
+            }
+        };
+
+        fetchProfileData();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage(""); 
+        setErrorMessage('');
+
+        // Only send the password if it's not empty
+        const dataToSend = { ...formData };
+        if (dataToSend.password === '') {
+            delete dataToSend.password; // Don't send the password if it's empty
+        }
 
         try {
-            const response = await fetch("http://localhost:3000/api/v1/users/signup", {
-                method: "POST",
+            const response = await fetch(`http://localhost:3000/api/v1/admin/profile`, {
+                method: 'PUT',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(dataToSend),
+                credentials: 'include',
             });
 
             if (response.ok) {
-                alert("Signed up successfully!");
-                setFormData({ email: '', username: '', password: '' });
-                navigate("/signin"); // Redirect to the sign-in page
+                alert('Profile updated successfully!');
+                navigate('/'); // Redirect to the homepage or movies list
             } else {
-                // If the response status is not OK, extract the error message
                 const errorData = await response.json();
-                setErrorMessage(errorData.message || "Signup failed. Please try again.");
+                setErrorMessage(`An error occurred: ${errorData.message || 'Please try again.'}`);
             }
         } catch (error) {
-            console.error("Error during signup:", error);
-            setErrorMessage("An error occurred");
+            console.error("Error updating profile:", error);
+            setErrorMessage("A network error occurred. Please try again.");
         }
     };
 
     return (
         <div className="bg-black min-h-screen h-fit flex items-center justify-center">
-            <div className="lg:h-[60%] lg:w-[35%] sm:h-[80%] sm:w-[60%] h-[80%] w-[80%]">
-                <h2 className="text-white text-3xl font-bold">Sign Up</h2>
+            <div className="lg:h-[70%] lg:w-[45%] sm:h-[80%] sm:w-[60%] h-[80%] w-[80%]">
+                <h2 className="text-white text-3xl font-bold">Edit Profile</h2>
 
                 <form onSubmit={handleSubmit} className="text-black flex text-xl flex-col gap-8 p-8">
                     <div className="flex flex-col font-semibold">
-                        <label>
-                            Email
+                        <label >
+                        <p className='text-white'> Email Address</p>
                             <input
                                 type="email"
                                 name="email"
@@ -68,8 +99,8 @@ const Signup = () => {
                     </div>
 
                     <div className="flex flex-col font-semibold">
-                        <label>
-                            Username
+                        <label >
+                            <p className='text-white'> Username</p>
                             <input
                                 type="text"
                                 name="username"
@@ -83,16 +114,16 @@ const Signup = () => {
 
                     <div className="flex flex-col font-semibold">
                         <label>
-                            Password
+                        <p className='text-white'> Password</p>
                             <input
                                 type="password"
                                 name="password"
                                 className="m-1 bg-white rounded-lg p-2 w-full text-lg font-normal"
-                                placeholder="Enter Password"
+                                placeholder="Enter New Password"
                                 value={formData.password}
                                 onChange={handleChange}
                             />
-                        </label>
+                        </label> 
                     </div>
 
                     {errorMessage && (
@@ -103,28 +134,13 @@ const Signup = () => {
 
                     <div className="w-full flex justify-center">
                         <button type="submit" className="w-fit p-2 px-4 rounded-xl bg-teal-500 text-white font-semibold">
-                            Sign Up
+                            Submit
                         </button>
-                    </div>
-
-                    <div className="text-center text-gray-600 text-sm mt-4">
-    <h1>
-        Already a User?{" "}
-        <span onClick={() => navigate("/signin")} className="text-blue-600 cursor-pointer">
-            Sign in
-        </span>
-    </h1>
-    <h1 className="mt-2">
-        <span onClick={() => navigate("/admin-signup")} className="text-blue-600 cursor-pointer">
-            Sign up as Admin
-        </span>
-    </h1>
-</div>
-
+                    </div> 
                 </form>
             </div>
         </div>
     );
 };
 
-export default Signup;
+export default AdminProfile;

@@ -58,13 +58,42 @@ adminRouter.post("/signin", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Error signing in", error: error.message });
     }
-});
+}); 
 
-// Admin logout route
-adminRouter.post("/logout", (req, res) => {
-    res.clearCookie("authToken");
-    res.json({ message: "Signed out successfully" });
-});
+// Admin profile routes (GET and PUT)
+adminRouter.route("/profile")
+    .get(authenticateAdmin, async (req, res) => {
+        try {
+            // Get the authenticated admin's profile
+            const admin = await adminModel.findById(req.user.id).select('-password'); // Exclude password from the response
+            if (!admin) {
+                return res.status(404).json({ message: "Admin not found" });
+            }
+            res.json({ message: "Admin profile fetched successfully", admin });
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching admin profile", error: error.message });
+        }
+    })
+    .put(authenticateAdmin, async (req, res) => {
+        try {
+            const updatedData = req.body;
+
+            // If a password is provided, hash it before updating
+            if (updatedData.password) {
+                updatedData.password = await bcrypt.hash(updatedData.password, 10);
+            }
+
+            // Update the admin profile
+            const updatedAdmin = await adminModel.findByIdAndUpdate(req.user.id, updatedData, { new: true }).select('-password');
+            if (!updatedAdmin) {
+                return res.status(404).json({ message: "Admin not found" });
+            }
+
+            res.json({ message: "Admin profile updated successfully", admin: updatedAdmin });
+        } catch (error) {
+            res.status(500).json({ message: "Error updating admin profile", error: error.message });
+        }
+    });
 
 // Admin protected route to get all user profiles
 adminRouter.get("/all-profiles", authenticateAdmin, async (req, res) => {
@@ -74,6 +103,11 @@ adminRouter.get("/all-profiles", authenticateAdmin, async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Error fetching profiles", error: error.message });
     }
+});
+
+adminRouter.post("/logout", (req, res) => {
+    res.clearCookie("authToken"); 
+    res.json({ message: "Signed out successfully" });
 });
 
 export default adminRouter;
