@@ -14,7 +14,7 @@ const Footer = () => {
                 {/* Social Links */}
                 <div className="flex items-center gap-4">
                     <a
-                        href="https://github.com/your-github-username"
+                        href="https://github.com/harshpratap2510"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-gray-200 transition"

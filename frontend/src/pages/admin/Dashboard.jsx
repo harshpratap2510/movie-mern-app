@@ -1,10 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
+import Navbar from '../../components/Navbar';
 
 const Dashboard = () => {
     const navigate = useNavigate();
   return (
     <div>
+        <Navbar/>
       <div className='bg-black flex flex-col gap-12 items-center justify-center h-fit min-h-screen'>
             <div onClick={()=> navigate("/create-movie")} className=' flex items-center justify-center border hover:scale-105 transition-all border-gray-400 border-l-4 rounded-lg hover:border-white text-teal-400 w-64 h-16 text-xl'>
                     Create Movie

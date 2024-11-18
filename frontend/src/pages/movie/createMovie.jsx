@@ -5,11 +5,11 @@ const CreateMovie = () => {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
-        year : '',
+        year: '',
         imageUrl: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();  
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,32 +21,41 @@ const CreateMovie = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear any previous error messages
-
+        setErrorMessage(''); // Clear previous errors
+    
+        // Validate input
+        if (!formData.description || !formData.title || !formData.year || !formData.imageUrl) {
+            setErrorMessage("All fields are required.");
+            return;
+        }
+        if (formData.description.length < 10) {
+            setErrorMessage("Description must be at least 10 characters long.");
+            return;
+        }
+    
         try {
             const response = await fetch(`http://localhost:3000/api/v1/movies/create-movie`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
                 credentials: "include",
             });
-
+    
             if (response.ok) {
-                alert("Movie Created successfully!");
-                setFormData({ title: '', description: '', year:'', imageUrl:'' }); 
+                alert("Movie created successfully!");
+                setFormData({ title: '', description: '', year: '', imageUrl: '' });
                 // navigate("/");  
             } else {
                 const errorData = await response.json();
+                console.error("Backend error:", errorData);
                 setErrorMessage(`An error occurred: ${errorData.message || 'Please try again.'}`);
             }
         } catch (error) {
-            console.error("Error during making movie:", error);
-            setErrorMessage("A network error occurred. Please check your connection and try again.");
+            console.error("Network error:", error);
+            setErrorMessage("A network error occurred. Please check your connection.");
         }
     };
-
+    
     return (
         <div className="bg-black h-fit min-h-screen flex items-center justify-center">
             <div className="lg:h-[60%] lg:w-[35%] sm:h-[80%] sm:w-[60%] h-[80%] w-[80%]">
@@ -81,7 +90,7 @@ const CreateMovie = () => {
                     </div>
                     <div className="flex flex-col font-semibold">
                         <label>
-                            Description
+                            Year
                             <input
                                 type="number"
                                 name="year"
@@ -119,8 +128,8 @@ const CreateMovie = () => {
                     </div>
 
                     <div className="text-center text-gray-600 text-sm mt-4">
-   
-</div>
+
+                    </div>
 
                 </form>
             </div>

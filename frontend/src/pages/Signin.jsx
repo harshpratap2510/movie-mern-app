@@ -97,12 +97,12 @@ const Signin = () => {
                     <div className="text-center text-gray-600 text-sm mt-4">
     <h1>
         New User?{" "}
-        <span onClick={() => navigate("/signup")} className="text-blue-600 cursor-pointer">
+        <span onClick={() => navigate("/signup")} className="text-teal-500 cursor-pointer">
             Sign up
         </span>
     </h1>
     <h1 className="mt-2">
-        <span onClick={() => navigate("/admin-signin")} className="text-blue-600 cursor-pointer">
+        <span onClick={() => navigate("/admin-signin")} className="text-teal-500 cursor-pointer">
             Sign in as Admin
         </span>
     </h1>

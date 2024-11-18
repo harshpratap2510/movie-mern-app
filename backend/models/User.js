@@ -11,19 +11,21 @@ const reviewSchema = new mongoose.Schema({
 });
  
 
-
+ 
 // Movie Schema
 const movieSchema = new Schema(
     {
-        title: { type: String, required: true, trim: true }, // Trim unnecessary whitespace
-        year: { type: Number, required: true, min: 1800 }, // Validate year (no ancient movies!)
+        title: { type: String, required: true, trim: true },
+        description: { type: String, required: true, trim: true }, // Added description
+        year: { type: Number, required: true, min: 1800 },  
         imageUrl: { type: String, required: true }, // Add a validation regex for valid URLs if needed
-        reviews: [reviewSchema], // Embedded array of reviews
+        reviews: [reviewSchema], 
     },
     {
-        timestamps: true, // Automatically add createdAt and updatedAt fields
+        timestamps: true,  
     }
 );
+
 
 // User Schema
 const userSchema = new Schema(

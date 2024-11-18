@@ -10,13 +10,15 @@ const MovieCard = ({ movies }) => {
         return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
     };
 
+    console.log(movies);
+
     return (
         <div className="p-8 bg-gray-900">
             <h2 className="text-2xl font-bold mb-4 text-white">All Movies</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {movies.length > 0 ? (
                     movies.map((movie) => (
-                        <div
+                        <div 
                             onClick={() => navigate(`/movie-detail/${movie._id}`)}
                             key={movie._id}
                             className="bg-gray-800 cursor-pointer p-4 rounded-lg shadow-md"
@@ -26,8 +28,8 @@ const MovieCard = ({ movies }) => {
                                 alt={movie.title}
                                 className="w-full h-40 object-cover mb-4 rounded-lg"
                             />
-                            <h3 className="font-semibold text-lg text-white">{movie.title}</h3>
-                            <p className="text-gray-400">{truncateText(movie.description, 60)}</p>
+                            <h3 className="font-semibold text-lg text-white break-words">{movie.title}</h3>
+                            <p className="text-gray-400 break-words">{truncateText(movie.description, 60)}</p>
                             <p className="text-gray-500 mt-2">Year: {movie.year}</p>
                         </div>
                     ))

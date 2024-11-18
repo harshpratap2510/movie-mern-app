@@ -79,7 +79,7 @@ const Navbar = () => {
     return (
         <div>
             <nav className="fixed top-0 w-full flex items-center justify-between px-8 py-4 bg-black bg-opacity-80 shadow-lg z-10">
-                <h1 className="text-2xl font-bold cursor-pointer text-white hover:text-gray-300" onClick={() => navigate("/")}>
+                <h1 className="text-2xl font-bold cursor-pointer text-white hover:text-teal-400" onClick={() => navigate("/")}>
                     MovieApp
                 </h1>
 
@@ -92,10 +92,10 @@ const Navbar = () => {
 
                 {/* Navbar Links */}
                 <ul 
-    className={`lg:flex gap-10 text-lg items-center transition-all duration-300 ${isMenuOpen ? 'flex-col absolute top-full left-0 bg-black w-full p-4 space-y-6 opacity-100' : 'hidden lg:flex opacity-0 lg:opacity-100'}`}
+    className={`lg:flex gap-10 text-lg items-center transition-all duration-300 ${isMenuOpen ? 'flex-col absolute top-full left-0 bg-black  w-full p-4 space-y-6 opacity-100' : 'hidden lg:flex opacity-0 lg:opacity-100'}`}
 >
     <li 
-        className="cursor-pointer transition-all duration-200 hover:bg-gray-700 p-2 rounded-lg"
+        className="cursor-pointer transition-all duration-200 text-white hover:text-teal-400 p-2 rounded-lg"
         onClick={() => navigate("/")}
     >
         Home
@@ -103,13 +103,13 @@ const Navbar = () => {
     {isLoggedIn ? (
         <>
             <li 
-                className="cursor-pointer transition-all duration-200 hover:bg-gray-700 p-2 rounded-lg"
+                className="cursor-pointer transition-all duration-200 text-white hover:text-teal-400 p-2 rounded-lg"
                 onClick={handleProfileClick}
             >
                 Profile
             </li>
             <li 
-                className="cursor-pointer transition-all duration-200 hover:bg-gray-700 p-2 rounded-lg"
+                className="cursor-pointer transition-all duration-200 text-white hover:text-teal-400 p-2 rounded-lg"
                 onClick={handleLogout}
             >
                 Logout
@@ -117,21 +117,21 @@ const Navbar = () => {
         </>
     ) : (
         <li 
-            className="cursor-pointer transition-all duration-200 hover:bg-gray-700 p-2 rounded-lg"
+            className="cursor-pointer transition-all duration-200 text-white hover:text-teal-400 p-2 rounded-lg"
             onClick={() => navigate("/signup")}
         >
             Signup
         </li>
     )}
     <li 
-        className="cursor-pointer transition-all duration-200 hover:bg-gray-700 p-2 rounded-lg"
+        className="cursor-pointer transition-all duration-200 text-white hover:text-teal-400 p-2 rounded-lg"
         onClick={() => navigate("/about")}
     >
         About
     </li>
     {isAdmin && (
         <li 
-            className="cursor-pointer transition-all duration-200 hover:bg-gray-700 p-2 rounded-lg"
+            className="cursor-pointer transition-all duration-200 text-white hover:text-teal-400 p-2 rounded-lg"
             onClick={() => navigate("/dashboard")}
         >
             Dashboard

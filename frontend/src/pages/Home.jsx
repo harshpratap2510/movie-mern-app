@@ -36,9 +36,9 @@ const Home = () => {
     };
 
     return (
-        <div className="h-screen bg-black text-white">
+        <div className="h-auto bg-black text-white">
             {/* Navbar */}
-            <Navbar />
+            {/* <Navbar /> */}
 
             {/* Background with search bar */}
             <div
@@ -64,7 +64,7 @@ const Home = () => {
             {/* Movie Cards Section */}
             <MovieCard movies={movies} />
 
-            <Footer/>
+            {/* <Footer/> */}
         </div>
     );
 };

@@ -96,7 +96,7 @@ const AdminSignin = () => {
                     </div>
 
                     <div className='text-center text-gray-600 text-sm mt-4'>
-                        <h1>Sign up as Admin? <span onClick={() => navigate("/signup")} className='text-blue-600 cursor-pointer'>Sign up</span></h1>
+                        <h1>Sign up as Admin? <span onClick={() => navigate("/signup")} className='text-teal-500 cursor-pointer'>Sign up</span></h1>
                     </div>
                 </form>
             </div>

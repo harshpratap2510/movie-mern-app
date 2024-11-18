@@ -108,7 +108,7 @@ const AdminSignup = () => {
                     </div>
 
                     <div className='text-center text-gray-600 text-sm'>
-                        <h1>Already registered as Administrator? <span onClick={() => navigate("/admin-signin")} className='text-blue-600 cursor-pointer'>Sign in</span></h1>
+                        <h1>Already registered as Administrator? <span onClick={() => navigate("/admin-signin")} className='text-teal-500 cursor-pointer'>Sign in</span></h1>
                     </div>
                 </form>
             </div>
