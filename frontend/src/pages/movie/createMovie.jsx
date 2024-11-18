@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import React, { useState } from 'react'; 
 
 const CreateMovie = () => {
     const [formData, setFormData] = useState({
@@ -8,8 +7,7 @@ const CreateMovie = () => {
         year: '',
         imageUrl: '',
     });
-    const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState(''); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,9 +19,8 @@ const CreateMovie = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear previous errors
-    
-        // Validate input
+        setErrorMessage('');  
+     
         if (!formData.description || !formData.title || !formData.year || !formData.imageUrl) {
             setErrorMessage("All fields are required.");
             return;

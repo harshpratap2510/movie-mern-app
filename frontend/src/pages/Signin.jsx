@@ -19,7 +19,7 @@ const Signin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear any previous error messages
+        setErrorMessage('');  
 
         try {
             const response = await fetch(`http://localhost:3000/api/v1/users/signin`, {

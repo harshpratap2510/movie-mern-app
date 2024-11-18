@@ -107,8 +107,7 @@ const MovieDetail = () => {
                             {errorMessage}
                         </div>
                     )}
-
-                    {/* Movie Image */}
+ 
                     <div className="w-full">
                         <img
                             src={formData.imageUrl}
@@ -116,8 +115,8 @@ const MovieDetail = () => {
                             className="object-cover w-full h-[50vh] lg:h-[70vh] rounded-md"
                         />
                     </div>
+ 
 
-                    {/* Movie Details */}
                     <div className="w-full text-black flex flex-col flex-wrap gap-4">
                         <h1 className="text-3xl lg:text-5xl font-bold text-center text-gray-200">
                             {formData.title}
@@ -129,8 +128,7 @@ const MovieDetail = () => {
                             <span className="font-bold">Year:</span> {formData.year}
                         </p>
                     </div>
-
-                    {/* Reviews Section */}
+ 
                     <div className="w-full text-white flex flex-col gap-6">
                         <h2 className="text-2xl font-bold">Reviews</h2>
                         <div className="grid gap-4">
@@ -151,8 +149,7 @@ const MovieDetail = () => {
                             )}
                         </div>
                     </div>
-
-                    {/* Add Review Section */}
+ 
                     {isAuthenticated ? (
                         <form onSubmit={handleReviewSubmit} className="w-full flex flex-col gap-4 mt-4">
                             <textarea

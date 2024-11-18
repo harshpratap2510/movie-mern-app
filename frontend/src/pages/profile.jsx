@@ -10,12 +10,11 @@ const AdminProfile = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        // Fetch the existing admin profile data
+    useEffect(() => { 
         const fetchProfileData = async () => {
             try {
                 const response = await fetch(`http://localhost:3000/api/v1/users/profile`, {
-                    credentials: 'include', // Ensure cookies are included
+                    credentials: 'include',  
                 });
                 const data = await response.json();
 
@@ -23,7 +22,7 @@ const AdminProfile = () => {
                     setFormData({
                         username: data.user.username,
                         email: data.user.email,
-                        password: '', // Avoid populating password from the server
+                        password: '',  
                     });
                 } else {
                     setErrorMessage("Failed to load profile data.");
@@ -48,11 +47,10 @@ const AdminProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-
-        // Only send the password if it's not empty
+ 
         const dataToSend = { ...formData };
         if (dataToSend.password === '') {
-            delete dataToSend.password; // Don't send the password if it's empty
+            delete dataToSend.password;  
         }
 
         try {
@@ -67,7 +65,7 @@ const AdminProfile = () => {
 
             if (response.ok) {
                 alert('Profile updated successfully!');
-                navigate('/'); // Redirect to the homepage or movies list
+                navigate('/');  
             } else {
                 const errorData = await response.json();
                 setErrorMessage(`An error occurred: ${errorData.message || 'Please try again.'}`);

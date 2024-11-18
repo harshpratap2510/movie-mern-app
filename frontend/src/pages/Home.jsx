@@ -36,11 +36,9 @@ const Home = () => {
     };
 
     return (
-        <div className="h-auto bg-black text-white">
+        <div className="min-h-fit h-screen bg-black text-white">
             {/* Navbar */}
-            {/* <Navbar /> */}
-
-            {/* Background with search bar */}
+            {/* <Navbar /> */} 
             <div
                 className="h-[80%] flex items-end justify-center"
                 style={{
@@ -60,8 +58,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-
-            {/* Movie Cards Section */}
+ 
             <MovieCard movies={movies} />
 
             {/* <Footer/> */}

@@ -9,8 +9,7 @@ const Signup = () => {
     });
 
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState(""); // To store detailed error messages
-
+    const [errorMessage, setErrorMessage] = useState("");  
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -35,7 +34,7 @@ const Signup = () => {
             if (response.ok) {
                 alert("Signed up successfully!");
                 setFormData({ email: '', username: '', password: '' });
-                navigate("/signin"); // Redirect to the sign-in page
+                navigate("/signin"); 
             } else {
                 // If the response status is not OK, extract the error message
                 const errorData = await response.json();

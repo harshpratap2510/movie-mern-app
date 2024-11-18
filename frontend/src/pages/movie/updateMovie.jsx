@@ -10,10 +10,9 @@ const UpdateMovie = () => {
     });
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    const { movieId } = useParams(); // Get movieId from route parameters
+    const { movieId } = useParams();  
 
-    useEffect(() => {
-        // Fetch the existing movie data by ID when the component mounts
+    useEffect(() => { 
         const fetchMovieData = async () => {
             try {
                 const response = await fetch(`http://localhost:3000/api/v1/movies/specific-movie/${movieId}`);
@@ -65,7 +64,7 @@ const UpdateMovie = () => {
 
             if (response.ok) {
                 alert('Movie updated successfully!');
-                navigate('/'); // Redirect to the homepage or movies list
+                navigate('/');  
             } else {
                 const errorData = await response.json();
                 setErrorMessage(`An error occurred: ${errorData.message || 'Please try again.'}`);
