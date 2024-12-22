@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 
 const CreateMovie = () => {
     const [formData, setFormData] = useState({
@@ -7,20 +7,38 @@ const CreateMovie = () => {
         year: '',
         imageUrl: '',
     });
-    const [errorMessage, setErrorMessage] = useState(''); 
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
+        const { name, value, files } = e.target;
+
+        if (name === "imageUrl" && files?.length > 0) {
+            const file = files[0];
+            const reader = new FileReader();
+
+            if (file.type === "image/jpeg" || file.type === "image/png") {
+                reader.onload = () => {
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        imageUrl: reader.result, // Base64 string
+                    }));
+                };
+                reader.readAsDataURL(file);
+            } else {
+                setErrorMessage("Only JPEG or PNG images are allowed.");
+            }
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage('');  
-     
+        setErrorMessage('');
+
         if (!formData.description || !formData.title || !formData.year || !formData.imageUrl) {
             setErrorMessage("All fields are required.");
             return;
@@ -29,19 +47,19 @@ const CreateMovie = () => {
             setErrorMessage("Description must be at least 10 characters long.");
             return;
         }
-    
+
         try {
+            console.log(formData)
             const response = await fetch(`http://localhost:3000/api/v1/movies/create-movie`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
                 credentials: "include",
             });
-    
+
             if (response.ok) {
                 alert("Movie created successfully!");
                 setFormData({ title: '', description: '', year: '', imageUrl: '' });
-                // navigate("/");  
             } else {
                 const errorData = await response.json();
                 console.error("Backend error:", errorData);
@@ -52,7 +70,7 @@ const CreateMovie = () => {
             setErrorMessage("A network error occurred. Please check your connection.");
         }
     };
-    
+
     return (
         <div className="bg-black h-fit min-h-screen flex items-center justify-center">
             <div className="lg:h-[60%] lg:w-[35%] sm:h-[80%] sm:w-[60%] h-[80%] w-[80%]">
@@ -100,13 +118,12 @@ const CreateMovie = () => {
                     </div>
                     <div className="flex flex-col font-semibold">
                         <label>
-                            Image URL
+                            Image
                             <input
-                                type="text"
+                                type="file"
+                                accept=".jpeg,.jpg,.png"
                                 name="imageUrl"
                                 className="m-1 bg-white rounded-lg p-2 w-full text-lg font-normal"
-                                placeholder="Enter imageUrl"
-                                value={formData.imageUrl}
                                 onChange={handleChange}
                             />
                         </label>
@@ -123,11 +140,6 @@ const CreateMovie = () => {
                             Create Movie
                         </button>
                     </div>
-
-                    <div className="text-center text-gray-600 text-sm mt-4">
-
-                    </div>
-
                 </form>
             </div>
         </div>

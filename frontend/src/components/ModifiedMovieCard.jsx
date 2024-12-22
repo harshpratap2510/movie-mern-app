@@ -56,7 +56,7 @@ const ModMovieCard = ({ movies, setMovies }) => {
                     <div key={movie._id} className="bg-gray-800 p-4 rounded-lg shadow-md">
                         <img src={movie.imageUrl} alt={movie.title} className="w-full h-40 object-cover mb-4 rounded-lg" />
                         <h3 className="font-semibold text-lg text-white">{movie.title}</h3>
-                        <p className="text-gray-400">{truncateText(movie.description, 35)}</p>
+                        <p className="text-gray-400 break-words">{truncateText(movie.description, 35)}</p>
                         <p className="text-gray-500 mt-2">Year: {movie.year}</p>
                         <div className="flex gap-4 mt-4 justify-around">
                             <button

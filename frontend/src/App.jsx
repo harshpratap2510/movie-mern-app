@@ -9,7 +9,7 @@ import Body from './components/Body';
 function App() {
     return (
         <Router>
-            <Navbar/>
+            {/* <Navbar/> */}
 
                 <Body/>
             <Footer/>

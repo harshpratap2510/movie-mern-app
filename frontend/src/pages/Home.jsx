@@ -38,7 +38,7 @@ const Home = () => {
     return (
         <div className="min-h-fit h-screen bg-black text-white">
             {/* Navbar */}
-            {/* <Navbar /> */} 
+            <Navbar /> 
             <div
                 className="h-[80%] flex items-end justify-center"
                 style={{

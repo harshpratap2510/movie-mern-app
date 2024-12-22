@@ -20,7 +20,7 @@ router.get("/specific-movie/:id", async (req, res) => {
 
         const specific = await movieModel.findById(id).populate({
             path: 'reviews.userId',
-            select: 'username', // Fetch only the username
+            select: 'username', 
         });
                 
     //    console.log(specific.reviews) ;
@@ -89,6 +89,7 @@ router.post("/add-review/:id", async (req, res) => {
 // Admin Routes
 router.post("/create-movie", authenticateAdmin, async (req, res) => {
     try {
+        console.log(req.body)
         const { title, description, year, imageUrl } = req.body;
 
         if (!title || !description || !year || !imageUrl) {
@@ -139,7 +140,7 @@ router.get("/search-movies", async (req, res) => {
     try {
         const { query } = req.query;
         const movies = await movieModel.find({
-            title: { $regex: query, $options: "i" }, // Case-insensitive search
+            title: { $regex: query, $options: "i" }, 
         });
         res.json({ movies });
     } catch (error) {
