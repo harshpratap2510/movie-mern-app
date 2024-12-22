@@ -32,14 +32,5 @@ app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/movies", movieRoutes);
 app.use("/api/v1/auth", authRoute);
 
-const path = require('path');
-
-// Serve static files directly from the frontend folder (not `dist`)
-app.use(express.static(path.join(__dirname, 'frontend')));
-
-// For any other route, serve the index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/index.html'));
-});
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
