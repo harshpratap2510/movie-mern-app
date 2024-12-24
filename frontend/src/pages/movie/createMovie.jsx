@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const CreateMovie = () => {
     const [formData, setFormData] = useState({
@@ -50,7 +51,7 @@ const CreateMovie = () => {
 
         try {
             console.log(formData)
-            const response = await fetch(`http://localhost:3000/api/v1/movies/create-movie`, {
+            const response = await fetch(`${BASE_URL}/api/v1/movies/create-movie`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

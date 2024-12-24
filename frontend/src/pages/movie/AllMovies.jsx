@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ModMovieCard from '../../components/ModifiedMovieCard';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const AllMovies = () => {
     const [movies, setMovies] = useState([]);
@@ -8,7 +9,7 @@ const AllMovies = () => {
      
     const fetchMovies = async (query = "") => {
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/movies/search-movies?query=${query}`);
+            const response = await fetch(`${BASE_URL}/api/v1/movies/search-movies?query=${query}`);
             const data = await response.json();
             if (response.ok) {
                 setMovies(data.movies);   

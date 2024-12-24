@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const UpdateMovie = () => {
     const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const UpdateMovie = () => {
     useEffect(() => { 
         const fetchMovieData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/movies/specific-movie/${movieId}`);
+                const response = await fetch(`${BASE_URL}/api/v1/movies/specific-movie/${movieId}`);
                 const data = await response.json();
 
                 // console.log(data.title);
@@ -53,7 +54,7 @@ const UpdateMovie = () => {
         setErrorMessage('');
 
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/movies/update-movie/${movieId}`, {
+            const response = await fetch(`${BASE_URL}/api/v1/movies/update-movie/${movieId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

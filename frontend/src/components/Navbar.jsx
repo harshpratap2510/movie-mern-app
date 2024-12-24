@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-
+const BASE_URL=import.meta.env.VITE_BASE_URL
 const Navbar = () => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchStatus = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/v1/auth/user-status", {
+                const response = await fetch(`${BASE_URL}/api/v1/auth/user-status`, {
                     method: "GET",
                     credentials: "include"
                 });
@@ -40,9 +40,9 @@ const Navbar = () => {
     
             // Choose logout URL based on user type
             if (isAdmin) {
-                logoutUrl = "http://localhost:3000/api/v1/admin/logout"; // Admin logout route
+                logoutUrl = `${BASE_URL}/api/v1/admin/logout`; // Admin logout route
             } else if (isLoggedIn) {
-                logoutUrl = "http://localhost:3000/api/v1/users/logout"; // User logout route
+                logoutUrl = `${BASE_URL}/api/v1/users/logout`; // User logout route
             }
     
             // If a logout URL is set, proceed to logout

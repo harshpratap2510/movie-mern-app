@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const MovieDetail = () => {
     const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const MovieDetail = () => {
     useEffect(() => {
         const fetchMovieData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/movies/specific-movie/${movieId}`);
+                const response = await fetch(`${BASE_URL}/api/v1/movies/specific-movie/${movieId}`);
                 const data = await response.json();
 
                 if (response.ok) {
@@ -43,7 +44,7 @@ const MovieDetail = () => {
 
         const checkAuthentication = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/auth/user-status`, {
+                const response = await fetch(`${BASE_URL}/api/v1/auth/user-status`, {
                     credentials: 'include',
                 });
                 const data = await response.json();
@@ -73,7 +74,7 @@ const MovieDetail = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/movies/add-review/${movieId}`, {
+            const response = await fetch(`${BASE_URL}/api/v1/movies/add-review/${movieId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
