@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const AdminProfile = () => {
     const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ const AdminProfile = () => {
         // Fetch the existing admin profile data
         const fetchProfileData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/admin/profile`, {
+                const response = await fetch(`${BASE_URL}/api/v1/admin/profile`, {
                     credentials: 'include', // Ensure cookies are included
                 });
                 const data = await response.json();
@@ -56,7 +57,7 @@ const AdminProfile = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/admin/profile`, {
+            const response = await fetch(`${BASE_URL}/api/v1/admin/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

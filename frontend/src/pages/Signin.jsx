@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -22,7 +23,8 @@ const Signin = () => {
         setErrorMessage('');  
 
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/users/signin`, {
+            console.log(BASE_URL)
+            const response = await fetch(`${BASE_URL}/api/v1/users/signin`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

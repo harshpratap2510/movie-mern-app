@@ -3,6 +3,7 @@ import banner from '../assets/banner1.jpg';
 import Navbar from '../components/Navbar';
 import MovieCard from '../components/MovieCard';
 import Footer from '../components/Footer';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const Home = () => {
     const [search, setSearch] = useState('');
@@ -12,7 +13,7 @@ const Home = () => {
     const fetchMovies = async (query = '') => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/v1/movies/search-movies?query=${query}`
+                `${BASE_URL}/api/v1/movies/search-movies?query=${query}`
             );
             const data = await response.json();
             setMovies(data.movies);

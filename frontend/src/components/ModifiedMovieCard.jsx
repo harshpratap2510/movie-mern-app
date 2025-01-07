@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+const BASE_URL=import.meta.env.VITE_BASE_URL
 
 const ModMovieCard = ({ movies, setMovies }) => {
     const [showModal, setShowModal] = useState(false);
@@ -22,7 +23,7 @@ const ModMovieCard = ({ movies, setMovies }) => {
 
     const confirmDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/movies/delete-movie/${selectedMovieId}`, {
+            const response = await fetch(`${BASE_URL}/api/v1/movies/delete-movie/${selectedMovieId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
