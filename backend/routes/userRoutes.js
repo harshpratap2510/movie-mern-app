@@ -36,38 +36,32 @@ router.post("/signin", async (req, res) => {
     try {
         const user = await userModel.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: "Incorrect credentials" });
+            return res.status(400).json({ message: "Invalid credentials" });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "Incorrect credentials" });
+            return res.status(401).json({ message: "Invalid credentials" });
         }
-
-        const isLoggedIn = true;
-        const isAdmin = false;  
 
         const token = jwt.sign({ id: user._id, isLoggedIn, isAdmin }, process.env.JWT_SECRET);
 
         res.cookie("authToken", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 60* 60 * 60 * 1000, // 1 hour expiration
-            sameSite: 'Strict'
+            maxAge: 60 * 60 * 1000, // 1 hour
+            sameSite: "Lax",
+            path: "/",
         });
-
-        // console.log(isLoggedIn)
 
         res.json({
             message: "Signed in successfully",
-            token,
-            isLoggedIn,
-            isAdmin
         });
     } catch (error) {
         res.status(500).json({ message: "Error signing in", error: error.message });
     }
 });
+
 
 // Logout route
 router.post("/logout", (req, res) => {
