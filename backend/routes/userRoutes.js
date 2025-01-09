@@ -53,7 +53,9 @@ router.post("/signin", async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 60 * 60 * 1000, // 1 hour expiration
-            sameSite: 'Strict'
+            sameSite: 'None',
+            path: "/",
+
         });
 
         res.json({
