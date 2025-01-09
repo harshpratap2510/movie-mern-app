@@ -52,9 +52,11 @@ router.post("/signin", async (req, res) => {
         res.cookie("authToken", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 60 * 60 * 1000, // 1 hour expiration
+            maxAge: 60* 60 * 60 * 1000, // 1 hour expiration
             sameSite: 'Strict'
         });
+
+        // console.log(isLoggedIn)
 
         res.json({
             message: "Signed in successfully",

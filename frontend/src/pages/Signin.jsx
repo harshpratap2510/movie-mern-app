@@ -36,6 +36,7 @@ const Signin = () => {
             if (response.ok) {
                 alert("Signed in successfully!");
                 setFormData({ email: '', password: '' }); 
+                
                 navigate("/");  
             } else if (response.status === 400) {
                 setErrorMessage("Invalid email or password format.");

@@ -20,6 +20,7 @@ const Navbar = () => {
                     const { isLoggedIn, isAdmin } = data;
                     setIsLoggedIn(isLoggedIn);
                     setIsAdmin(isAdmin);
+                    console.log(isLoggedIn);
                 } else {
                     setIsLoggedIn(false);
                     setIsAdmin(false);
