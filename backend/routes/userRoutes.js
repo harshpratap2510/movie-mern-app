@@ -98,4 +98,3 @@ router.route("/profile")
     });
 
 export default router;
-
