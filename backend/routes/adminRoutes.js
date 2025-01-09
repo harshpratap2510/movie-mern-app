@@ -107,7 +107,12 @@ adminRouter.get("/all-profiles", authenticateAdmin, async (req, res) => {
 });
 
 adminRouter.post("/logout", (req, res) => {
-    res.clearCookie("authToken"); 
+    res.clearCookie("authToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "None", // Matches your cookie settings
+        path: "/"
+    });
     res.json({ message: "Signed out successfully" });
 });
 

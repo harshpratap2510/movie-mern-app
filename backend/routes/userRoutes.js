@@ -71,7 +71,12 @@ router.post("/signin", async (req, res) => {
 
 // Logout route
 router.post("/logout", (req, res) => {
-    res.clearCookie("authToken"); 
+    res.clearCookie("authToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "None", // Matches your cookie settings
+        path: "/"
+    });
     res.json({ message: "Signed out successfully" });
 });
 
